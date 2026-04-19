@@ -1,0 +1,25 @@
+# Backend-specific .gitignore
+
+# Environment
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Database files
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# OS
+.DS_Store

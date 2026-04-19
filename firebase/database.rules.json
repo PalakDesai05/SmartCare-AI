@@ -1,0 +1,68 @@
+{
+  "rules": {
+    "users": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && (auth.uid === $uid || root.child('users').child(auth.uid).child('role').val() === 'admin')"
+      }
+    },
+    "doctors": {
+      ".read": "auth != null",
+      "$doctorUid": {
+        ".write": "auth != null && (auth.uid === $doctorUid || root.child('users').child(auth.uid).child('role').val() === 'admin')"
+      }
+    },
+    "appointments": {
+      "$patientUid": {
+        ".read": "auth != null && (auth.uid === $patientUid || root.child('users').child(auth.uid).child('role').val() === 'doctor' || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        ".write": "auth != null"
+      }
+    },
+    "doctor_queue": {
+      "$doctorUid": {
+        ".read": "auth != null && (auth.uid === $doctorUid || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        ".write": "auth != null"
+      }
+    },
+    "prescriptions": {
+      "$patientUid": {
+        ".read": "auth != null && (auth.uid === $patientUid || root.child('users').child(auth.uid).child('role').val() === 'doctor' || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        ".write": "auth != null"
+      }
+    },
+    "pharmacy_queue": {
+      "$pharmacyUid": {
+        ".read": "auth != null && (auth.uid === $pharmacyUid || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        ".write": "auth != null"
+      }
+    },
+    "bills": {
+      "$patientUid": {
+        ".read": "auth != null && (auth.uid === $patientUid || root.child('users').child(auth.uid).child('role').val() === 'pharmacy' || root.child('users').child(auth.uid).child('role').val() === 'admin')",
+        ".write": "auth != null"
+      }
+    },
+    "reports": {
+      "$patientUid": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.uid === $patientUid"
+      }
+    },
+    "family_members": {
+      "$patientUid": {
+        ".read": "auth != null && auth.uid === $patientUid",
+        ".write": "auth != null && auth.uid === $patientUid"
+      }
+    },
+    "emergency_alerts": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "notifications": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null"
+      }
+    }
+  }
+}
